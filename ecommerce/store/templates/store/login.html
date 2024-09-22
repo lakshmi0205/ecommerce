@@ -1,0 +1,280 @@
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: hsla(330, 2%, 20%, 0.944);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            width: 100%;
+            background-color: #17b2a0;
+            padding: 0 20px;
+        }
+
+        .header .logo img {
+            height: 15%;
+            width: 15%;
+        }
+
+        .background {
+            width: 430px;
+            height: 520px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+        }
+
+        .background .shape {
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        form {
+            height: 520px;
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #31312d;
+            box-shadow: 0 0 20px rgba(123, 119, 119, 0.8);
+            padding: 50px 35px;
+        }
+
+        form * {
+            font-family: 'Poppins', sans-serif;
+            color: #000000;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+
+        form h3 {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 11px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        input {
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        ::placeholder {
+            color: #070707;
+        }
+
+        button {
+            margin-top: 22px;
+            width: 100%;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #17b2a0;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .password-input-container {
+            position: relative;
+        }
+
+        .password-input-container input[type="password"] {
+            padding-right: 30px;
+        }
+
+        .password-input-container .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .remember-me-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .remember-me-container input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .remember-me-container label {
+            font-size: 17px;
+            color: #000000;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .admin{
+            margin: 0, 10px;
+            padding:10px;
+            display:flex;
+            justify-content: flex-end;
+            align-items: center;
+
+        }
+        .admin  a{
+            text-decoration:none;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <div class='logo'>
+            <a href="{% url 'login'%}"><img src="{% static 'images/image.png' %}" alt="Logo"></a>
+        </div>
+    </div>
+</div>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form method="post" onsubmit="return lsRememberMe()">
+    <h3>Login</h3>
+    {% csrf_token %}
+    <label for="username">User id</label>
+    <input type="text" placeholder="Enter outlook id" id="username" name="username" required>
+
+    <label for="password">Password</label>
+    <div class="password-input-container">
+        <input type="password" placeholder="Password" id="password" name="password" required>
+        <span class="password-toggle" onclick="togglePassword()"><i class="fas fa-eye"></i></span>
+    </div>
+
+    <div class="remember-me-container">
+        <input type="checkbox" id="remember-me" name="remember_me">
+        <label for="remember-me">Remember Me</label>
+    </div>
+    
+    <div class='admin'>
+        <button type="button" class="btn btn-warning" onclick="location.href='{% url 'store' %}'">
+            Log In
+        </button>
+    </div>
+    
+    {% if messages %}
+        <div class="error-message">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</form>
+
+
+
+<div class='footer'><p>Copyright © 2024 LAVI. All rights reserved.</p></div>
+<script>
+    const rmCheck = document.getElementById("remember-me"),
+        usernameInput = document.getElementById("username"),
+        passwordInput = document.getElementById("password");
+
+    // On page load, check if there's any saved user info
+    window.onload = function () {
+        if (localStorage.checkbox && localStorage.checkbox !== "") {
+            rmCheck.checked = true;
+            usernameInput.value = localStorage.username;
+            passwordInput.value = localStorage.password;
+        } else {
+            rmCheck.checked = false;
+            usernameInput.value = "";
+            passwordInput.value = "";
+        }
+    }
+
+    // Function to handle Remember Me functionality
+    function lsRememberMe() {
+        if (rmCheck.checked && usernameInput.value !== "" && passwordInput.value !== "") {
+            localStorage.username = usernameInput.value;
+            localStorage.password = passwordInput.value;
+            localStorage.checkbox = rmCheck.value;
+        } else {
+            localStorage.username = "";
+            localStorage.password = "";
+            localStorage.checkbox = "";
+        }
+        return true; // Submit the form
+    }
+
+    // Function to toggle password visibility
+    function togglePassword() {
+        var eyeIcon = document.querySelector(".password-toggle i");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+</script>
+</body>
+</html>
