@@ -1,0 +1,17 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1>View Image</h1>
+
+    <div id="image-container">
+        {% if image_url %}
+            <img src="{{ image_url }}" alt="Image not found" style="max-width: 100%; display: block; margin: 0 auto;">
+        {% else %}
+            <p>No image found.</p>
+        {% endif %}
+    </div>  
+    
+    <a class="btn btn-outline-primary" href="{% url 'store' %}">Back to Store</a>  <!-- Link back to the store -->
+</div>
+{% endblock %}

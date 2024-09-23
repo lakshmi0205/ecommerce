@@ -95,3 +95,9 @@ def processOrder(request):
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)
+
+
+def view_image(request):
+    image_url = request.GET.get('imageproduct.imageURL')  # Get the image URL from the query parameter
+    context = {'image_url': image_url}  # Pass the image URL to the context
+    return render(request, 'store/view.html', context)
